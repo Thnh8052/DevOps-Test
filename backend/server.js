@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ["https://thanhdztestfe.web.app", "https://project-id.firebaseapp.com"]
+}));
 app.use(express.json());
 
 mongoose
