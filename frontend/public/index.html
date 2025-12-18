@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Người dùng)</title>
+    <title>Quản lý Người dùng</title>
     
     <!-- React CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -139,6 +139,8 @@
     //    </div>
     //     );
     // }
+        const API_BASE_URL = "https://devops-test-k744.onrender.com";
+
         const { useState, useEffect } = React;
 
         //SearchBar (Debounce)
@@ -277,8 +279,8 @@
                 if (!validate(cleanData)) return;
 
                 const url = user 
-                    ? `http://localhost:3001/api/users/${user._id}`
-                    : 'http://localhost:3001/api/users';
+                    ? `${API_BASE_URL}/api/users/${user._id}`
+                    : `${API_BASE_URL}/api/users`;
                 const method = user ? "PUT" : "POST";
 
                 fetch(url, {
@@ -345,7 +347,7 @@
             const [editingUser, setEditingUser] = useState(null);
 
             const fetchUsers = () => {
-                fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}&search=${search}`)
+                fetch(`${API_BASE_URL}/api/users?page=${page}&limit=${limit}&search=${search}`)
                     .then(res => res.json())
                     .then(data => {
                         setUsers(data.data || []);
@@ -357,7 +359,7 @@
             useEffect(() => { fetchUsers(); }, [page, limit, search]);
 
             const deleteUser = (id) => {
-                fetch(`http://localhost:3001/api/users/${id}`, { method: "DELETE" })
+                fetch(`${API_BASE_URL}/api/users/${id}`, { method: "DELETE" })
                     .then(async res => {
                         const data = await res.json();
                         if (!res.ok) throw new Error(data.error);

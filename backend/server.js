@@ -47,6 +47,10 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+app.get("/", (req, res) => {
+  res.send("Backend is running on Render");
+});
+
 // GET /api/users
 app.get("/api/users", async (req, res) => {
   try {
@@ -170,7 +174,7 @@ app.delete("/api/users/:id", async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
