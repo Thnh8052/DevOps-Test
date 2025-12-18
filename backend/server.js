@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,8 +7,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
-// Kết nối MongoDB với username là MSSV, password là MSSV, dbname là it4409
-MONGODB_URI = "mongodb+srv://20225405:20225405@it4409.0nbvkau.mongodb.net/it4409"
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
@@ -45,6 +46,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
+
 // GET /api/users
 app.get("/api/users", async (req, res) => {
   try {
@@ -168,8 +170,7 @@ app.delete("/api/users/:id", async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
